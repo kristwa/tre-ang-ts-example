@@ -154,3 +154,13 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+
+# ===================
+# Project stuff
+# ===================
+
+node_modules/
+packages/
+bower_components/
+ScoreTracker/app/all.min.js
+ScoreTracker/Content/toastr.css
