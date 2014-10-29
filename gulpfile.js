@@ -9,6 +9,7 @@ var mainBowerFiles = require('main-bower-files');
 var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 var rename = require('gulp-rename');
+var ts = require('gulp-typescript');
 
 var config = {
     src : mainBowerFiles()
@@ -29,15 +30,15 @@ gulp.task('scripts', ['clean'], function() {
         .pipe(jsFilter)
         //.pipe(uglify())
         .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('ScoreTracker/app/'))
+        .pipe(gulp.dest('ScoreTracker.Web/Scripts/'))
         .pipe(jsFilter.restore())
 
         // CSS
         .pipe(cssFilter)
-        .pipe(gulp.dest('ScoreTracker/Content/'))
+        .pipe(gulp.dest('ScoreTracker.Web/Content/'))
         .pipe(minifyCss())
-        .pipe(concatCss("bundle.css"))
-        .pipe(gulp.dest('ScoreTracker/Content/'))
+        //.pipe(concatCss("bundle.css"))
+        //.pipe(gulp.dest('ScoreTracker.Web/Content/'))
         .pipe(cssFilter.restore());
 });
 
