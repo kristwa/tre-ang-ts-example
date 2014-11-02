@@ -1,3 +1,13 @@
+/*
+ * Toastr
+ * Copyright 2012-2014 John Papa and Hans Fjällemark.
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * Author: John Papa and Hans Fjällemark
+ * Project: https://github.com/CodeSeven/toastr
+ */
 .toast-title {
   font-weight: bold;
 }
@@ -76,6 +86,7 @@ button.toast-close-button {
   position: fixed;
   z-index: 999999;
   /*overrides*/
+
 }
 #toast-container * {
   -moz-box-sizing: border-box;
@@ -139,24 +150,6 @@ button.toast-close-button {
 }
 .toast-warning {
   background-color: #f89406;
-}
-/*Animations*/
-.toast {
-  opacity: 1 !important;
-}
-.toast.ng-enter {
-  opacity: 0 !important;
-  transition: opacity .3s linear;
-}
-.toast.ng-enter.ng-enter-active {
-  opacity: 1 !important;
-}
-.toast.ng-leave {
-  opacity: 1;
-  transition: opacity .3s linear;
-}
-.toast.ng-leave.ng-leave-active {
-  opacity: 0 !important;
 }
 /*Responsive Design*/
 @media all and (max-width: 240px) {

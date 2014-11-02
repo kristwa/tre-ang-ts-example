@@ -11,44 +11,120 @@ var concatCss = require('gulp-concat-css');
 var rename = require('gulp-rename');
 var ts = require('gulp-typescript');
 
-var config = {
-    src : mainBowerFiles()
-}
+var projectName = 'ScoreTracker.Web';
+
+var config = buildConfig();
+
 
 var jsFilter = gulpFilter('*.js');
 var cssFilter = gulpFilter('*.css');
 var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
 
-gulp.task('clean', function() {
-    del.sync(['ScoreTracker/app/all.min.js']);
+gulp.task('clean-js', function() {
+    del.sync([projectName + '/app/all.min.js']);
 });
 
-gulp.task('scripts', ['clean'], function() {
+gulp.task('clean-css', function () {
+    del.sync([projectName + "/content/*.css", projectName + "/Content/*.map"]);
+});
 
-    gulp.src(config.src)
+gulp.task('clean-ts', function () {
+    del.sync([projectName + '/app/app.js']);
+});
+
+gulp.task('js', ['clean-js'], function() {
+
+    gulp.src(config.js)
         // JS
-        .pipe(jsFilter)
+        //.pipe(jsFilter)
         //.pipe(uglify())
         .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('ScoreTracker.Web/Scripts/'))
-        .pipe(jsFilter.restore())
+        .on('error', swallowError)
+        .pipe(gulp.dest(projectName + '/app/'));
+    //.pipe(jsFilter.restore());
 
-        // CSS
-        .pipe(cssFilter)
-        .pipe(gulp.dest('ScoreTracker.Web/Content/'))
-        .pipe(minifyCss())
-        //.pipe(concatCss("bundle.css"))
-        //.pipe(gulp.dest('ScoreTracker.Web/Content/'))
-        .pipe(cssFilter.restore());
+    //// CSS
+    //.pipe(cssFilter)
+    //.pipe(gulp.dest(projectName + '/Content/'))
+    ////.pipe(minifyCss())
+    ////.pipe(concatCss("bundle.css"))
+    ////.pipe(gulp.dest('ScoreTracker.Web/Content/'))
+    //.pipe(cssFilter.restore());
+
+
 });
+
+gulp.task('css', ['clean-css'], function() {
+    gulp.src(config.css)
+        .pipe(gulp.dest(projectName + '/Content/'));
+});
+
+gulp.task('ts', ['clean-ts'], function() {
+    gulp.src(config.ts)
+        .pipe(ts({
+            decarationFiles: true,
+            noExternalResolve: true,
+        }))
+        .on('error', swallowError)
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest(projectName + '/app'));
+});
+
 
 //gulp.task('bower', function() {
 //    return bower()
 //        .pipe(gulp.dest(config.bowerDir));
 //});
 
-gulp.task('watch', function() {
-    gulp.watch(config.src, ['scripts']);
+gulp.task('watch', function () {
+    console.log(typeof (config.ts));
+    watch(config.js, function() {
+        gulp.start('js');
+    });
+    watch(config.ts, function() {
+        gulp.start('ts');
+    });
+    watch(config.css, function() {
+        gulp.start('css');
+    });
+
+    //gulp.watch(config.js.concat(config.ts, config.css), ['js', 'ts', 'css']);
+    //watch(config.js.concat(config.ts, config.css)), function () {
+    //    console.log('Trigger');
+    //    config = buildConfig();
+    //    gulp.start('default');
+//};
 });
 
-gulp.task('default', ['scripts'], function() {});
+gulp.task('default', ['js', 'ts', 'css'], function () { });
+
+function swallowError(error) {
+
+    //If you want details of the error in the console
+    console.log(error.toString());
+
+    this.emit('end');
+}
+
+function buildConfig() {
+    return {
+        src: mainBowerFiles(),
+        js: [
+            'bower_components/jquery/jquery.js',
+            'bower_components/angular/angular.js',
+            'bower_components/angular-route/angular-route.js',
+            'bower_components/angular-toastr/dist/angular-toastr.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js'
+        ],
+        ts: [
+            projectName + '/app/*.ts',
+            projectName + '/Scripts/typings/**/*.d.ts',
+            projectName + '/app/**/*.ts'
+        ],
+        css: [
+            'bower_components/bootstrap/dist/css/*.min.css',
+            'bower_components/bootstrap/dist/css/*.map',
+            'bower_components/angular-toastr/dist/*.min.css'
+        ]
+    };
+}

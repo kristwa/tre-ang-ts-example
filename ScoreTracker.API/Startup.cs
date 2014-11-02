@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Autofac;
@@ -19,6 +20,8 @@ namespace ScoreTracker.API
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
+
             var config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
