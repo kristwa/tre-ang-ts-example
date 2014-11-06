@@ -1,0 +1,55 @@
+﻿<div class="starter-template">
+    <h1>Bootstrap starter template</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Home team</th>
+                <th></th>
+                <th>-</th>
+                <th></th>
+                <th>Away team</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="line in vm.data">
+                <td>{{line.homeTeam.teamName}}</td>
+                <td>{{line.goalsHomeTeam}}</td>
+                <td>-</td>
+                <td>{{line.goalsAwayTeam}}</td>
+                <td>{{line.awayTeam.teamName}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <p></p>
+    <button ng-click="vm.getTable()">Hent tabell</button>
+    <p></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Place</th>
+                <th>Team</th>
+                <th>Games</th>
+                <th>Won</th>
+                <th>Drawn</th>
+                <th>Lost</th>
+                <th>Scored</th>
+                <th>Conceeded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="team in vm.table">
+                <td>{{team.place}}</td>
+                <td>{{team.team.teamName}}</td>
+                <td>{{team.games}}</td>
+                <td>{{team.won}}</td>
+                <td>{{team.drawn}}</td>
+                <td>{{team.lost}}</td>
+                <td>{{team.goalsFor}}</td>
+                <td>{{team.goalsAgainst}}</td>
+                <td>{{team.points}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

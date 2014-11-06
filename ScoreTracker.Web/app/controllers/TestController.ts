@@ -4,18 +4,27 @@ module Scoretracker {
 
     export class TestController {
         public static $inject = [
-            '$scope', 'testService'
+            '$scope', 'testService', 'tableService'
         ];
 
-        private message: string = "Fette eefett!";
+        private data: any;
+        private table: any;
         private test: number = 42;
+        private tableService: TableService;
         //private testService: TestService;
 
-        constructor($scope, testService: TestService) {
+        constructor($scope, testService: TestService, tableService: TableService) {
+            this.tableService = tableService;
             testService.get((data) => {
-                this.message = data;
+                this.data = data;
             });
             $scope.vm = this;
+        }
+
+        getTable() {
+            this.tableService.getTable((data) => {
+                this.table = data;
+            });
         }
 
 

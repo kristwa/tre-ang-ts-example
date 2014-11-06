@@ -6,6 +6,12 @@ using System.Web;
 
 namespace ScoreTracker.API.Model
 {
+    public interface IContext
+    {
+        DbSet<Team> Teams { get; set; }
+        DbSet<Match> Matches { get; set; }
+    }
+
     public class ScoreTrackerContext : DbContext
     {
         public ScoreTrackerContext() : base("ScoreTrackerConnection")

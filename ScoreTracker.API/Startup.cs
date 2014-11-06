@@ -9,9 +9,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Autofac;
 using Owin;
 using ScoreTracker.API.Lib;
+using WebApiContrib.IoC.Ninject;
 
 [assembly: OwinStartup(typeof(ScoreTracker.API.Startup))]
 namespace ScoreTracker.API
@@ -23,6 +23,7 @@ namespace ScoreTracker.API
             app.UseCors(CorsOptions.AllowAll);
 
             var config = new HttpConfiguration();
+            config.DependencyResolver = new NinjectResolver(NinjectConfig.CreateKernel());
 
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(

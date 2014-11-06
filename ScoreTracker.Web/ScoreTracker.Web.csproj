@@ -59,7 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.js" />
+    <Content Include="app\templates\test.html" />
     <Content Include="index.html" />
     <Content Include="Scripts\all.min.js" />
     <Content Include="Web.config" />
@@ -80,9 +80,11 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\App.ts" />
+    <TypeScriptCompile Include="app\Config.ts" />
+    <TypeScriptCompile Include="app\Module.ts" />
     <TypeScriptCompile Include="app\controllers\TestController.ts" />
     <TypeScriptCompile Include="app\References.ts" />
+    <TypeScriptCompile Include="app\services\TableService.ts" />
     <TypeScriptCompile Include="app\services\TestService.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

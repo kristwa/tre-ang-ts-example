@@ -28,7 +28,7 @@
     <![endif]-->
 </head>
 
-<body ng-controller="testController">
+<body>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -51,12 +51,9 @@
         </div>
     </div>
 
-    <div class="container" style="margin-top: 60px;">
+    <div class="container" style="margin-top: 60px;" ng-view>
 
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">{{vm.message}}</p>
-        </div>
+        
 
     </div><!-- /.container -->
     <!-- Bootstrap core JavaScript

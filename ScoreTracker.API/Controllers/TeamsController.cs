@@ -10,23 +10,23 @@ using ScoreTracker.API.Model.Repo;
 namespace ScoreTracker.API.Controllers
 {
     [RoutePrefix("api/default")]
-    public class TeamController : ApiController
+    public class TeamsController : ApiController
     {
-        private readonly IRepository<Team> teamRepository; 
+        private readonly IRepository<Team> _teamRepository; 
 
-        public TeamController()
+        public TeamsController(IRepository<Team> teamRepository)
         {
-            teamRepository = new DbRepository<Team>(new ScoreTrackerContext());
+            _teamRepository = teamRepository;
         }
 
         public IEnumerable<Team> Get()
         {
-            return teamRepository.Get().ToList();
+            return _teamRepository.Get().ToList();
         }
 
         public Team Get(int id)
         {
-            return teamRepository.GetById(id);
+            return _teamRepository.GetById(id);
         } 
     }
 }

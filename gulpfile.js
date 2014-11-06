@@ -13,7 +13,26 @@ var ts = require('gulp-typescript');
 
 var projectName = 'ScoreTracker.Web';
 
-var config = buildConfig();
+var config = {
+    src: mainBowerFiles(),
+    js: [
+        'bower_components/jquery/jquery.js',
+        'bower_components/angular/angular.js',
+        'bower_components/angular-route/angular-route.js',
+        'bower_components/angular-toastr/dist/angular-toastr.js',
+        'bower_components/bootstrap/dist/js/bootstrap.js'
+    ],
+    ts: [
+        projectName + '/app/*.ts',
+        projectName + '/Scripts/typings/**/*.d.ts',
+        projectName + '/app/**/*.ts'
+    ],
+    css: [
+        'bower_components/bootstrap/dist/css/*.min.css',
+        'bower_components/bootstrap/dist/css/*.map',
+        'bower_components/angular-toastr/dist/*.min.css'
+    ]
+}
 
 
 var jsFilter = gulpFilter('*.js');
@@ -106,25 +125,3 @@ function swallowError(error) {
     this.emit('end');
 }
 
-function buildConfig() {
-    return {
-        src: mainBowerFiles(),
-        js: [
-            'bower_components/jquery/jquery.js',
-            'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-toastr/dist/angular-toastr.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js'
-        ],
-        ts: [
-            projectName + '/app/*.ts',
-            projectName + '/Scripts/typings/**/*.d.ts',
-            projectName + '/app/**/*.ts'
-        ],
-        css: [
-            'bower_components/bootstrap/dist/css/*.min.css',
-            'bower_components/bootstrap/dist/css/*.map',
-            'bower_components/angular-toastr/dist/*.min.css'
-        ]
-    };
-}
