@@ -4,28 +4,50 @@ module Scoretracker {
 
     export class TestController {
         public static $inject = [
-            '$scope', 'testService', 'tableService'
+            '$scope', 'groupsService', 'tableService'
         ];
 
-        private data: any;
-        private table: any;
+        private data: any[];
+        //private tables: any[];
         private test: number = 42;
         private tableService: TableService;
-        //private testService: TestService;
+        private groupsService: GroupsService;
+        private scope: any;
 
-        constructor($scope, testService: TestService, tableService: TableService) {
-            this.tableService = tableService;
-            testService.get((data) => {
-                this.data = data;
-            });
+        constructor($scope, groupsService: GroupsService, tableService: TableService) {
             $scope.vm = this;
+            this.scope = $scope;
+            this.tableService = tableService;
+            this.groupsService = groupsService;
+
+            this.buildContents();
+
+            
+            
         }
 
-        getTable() {
-            this.tableService.getTable((data) => {
-                this.table = data;
+        buildContents() {
+            this.groupsService.get((data) => {
+                this.data = data;
+
+                data.forEach(group => {
+                    this.tableService.getTable(group.id, (data) => {
+                        group.table = data;
+                    });
+                    
+                });
+
             });
         }
+
+        //getTable(groupId) : any {
+            
+        //    this.tableService.getTable(groupId, (data) => {
+        //        return data;
+        //        this.scope.$apply();
+        //    });
+        //}
+
 
 
     }

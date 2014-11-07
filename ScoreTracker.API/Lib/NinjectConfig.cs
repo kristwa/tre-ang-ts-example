@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Ninject;
+using ScoreTracker.API.Controllers;
 using ScoreTracker.API.Model;
 using ScoreTracker.API.Model.Repo;
 
@@ -17,6 +18,7 @@ namespace ScoreTracker.API.Lib
             try
             {
                 kernel.Bind(typeof(IRepository<>)).To(typeof(DbRepository<>));
+                kernel.Bind<ICompetitionTableGenerator>().To<CompetitionTableGenerator>();
                 //kernel.Bind<IRepository<Match>>().To<DbRepository<Match>>();
                 return kernel;
             }

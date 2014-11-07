@@ -85,7 +85,7 @@
     <TypeScriptCompile Include="app\controllers\TestController.ts" />
     <TypeScriptCompile Include="app\References.ts" />
     <TypeScriptCompile Include="app\services\TableService.ts" />
-    <TypeScriptCompile Include="app\services\TestService.ts" />
+    <TypeScriptCompile Include="app\services\GroupsService.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />

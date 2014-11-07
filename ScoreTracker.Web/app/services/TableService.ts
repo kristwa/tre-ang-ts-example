@@ -10,8 +10,8 @@ module Scoretracker {
             this.http = $http;
         }
 
-        getTable(successCallback: Function) {
-            this.http.get(this.baseUrl).success((data, status) => {
+        getTable(groupId: number, successCallback: Function) {
+            this.http.get(this.baseUrl + '?groupId=' + groupId).success((data, status) => {
                 successCallback(data);
             }).error(error => {
                     successCallback(error);

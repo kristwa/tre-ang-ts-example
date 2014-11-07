@@ -124,7 +124,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
+    <Compile Include="Lib\IQueryableExtensions.cs" />
     <Compile Include="Model\TableItem.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />

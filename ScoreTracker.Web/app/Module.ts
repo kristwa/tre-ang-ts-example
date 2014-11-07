@@ -14,7 +14,7 @@ module Scoretracker {
                     });
             }])
         .controller('testController', Scoretracker.TestController)
-        .service('testService', Scoretracker.TestService)
+        .service('groupsService', Scoretracker.GroupsService)
         .service('tableService', Scoretracker.TableService)
         
     ;

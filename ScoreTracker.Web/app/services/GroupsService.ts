@@ -1,9 +1,9 @@
 ﻿///<reference path="../References.ts"/>
 
 module Scoretracker {
-    export class TestService {
+    export class GroupsService {
 
-        private baseUrl: string = "http://localhost:1337/api/matches";
+        private baseUrl: string = "http://localhost:1337/api/groups";
         private http: ng.IHttpService;
 
         constructor($http: ng.IHttpService) {

@@ -64,11 +64,31 @@ namespace ScoreTracker.API.Model
             {
                 TeamName = "Costa Rica"
             };
+            var norway = new Team()
+            {
+                TeamName = "Norway"
+            };
+            var brazil = new Team()
+            {
+                TeamName = "Brazil"
+            };
+            var germany = new Team()
+            {
+                TeamName = "Germany"
+            };
+            var japan = new Team()
+            {
+                TeamName = "Japan"
+            };
 
             ctx.Teams.Add(england);
             ctx.Teams.Add(uruguay);
             ctx.Teams.Add(italy);
             ctx.Teams.Add(costarica);
+            ctx.Teams.Add(norway);
+            ctx.Teams.Add(brazil);
+            ctx.Teams.Add(germany);
+            ctx.Teams.Add(japan);
 
             ctx.SaveChanges();
 
@@ -88,6 +108,11 @@ namespace ScoreTracker.API.Model
             group1.Teams.Add(italy);
             group1.Teams.Add(uruguay);
             group1.Teams.Add(costarica);
+
+            group2.Teams.Add(norway);
+            group2.Teams.Add(brazil);
+            group2.Teams.Add(germany);
+            group2.Teams.Add(japan);
 
             ctx.Groups.Add(group1);
             ctx.Groups.Add(group2);
@@ -155,7 +180,27 @@ namespace ScoreTracker.API.Model
                 Group = group1
             });
 
+            AddMatch(ctx, group2, norway, brazil, new DateTime(2014,10,10), 1, 4);
+            AddMatch(ctx, group2, germany, japan, new DateTime(2014, 10, 10), 3, 0);
+            AddMatch(ctx, group2, japan, norway, new DateTime(2015, 10, 10));
+            AddMatch(ctx, group2, brazil, germany, new DateTime(2014, 10, 10));
+            AddMatch(ctx, group2, norway, germany, new DateTime(2014, 11, 11));
+            AddMatch(ctx, group2, japan, brazil, new DateTime(2014, 11, 12));
+
             ctx.SaveChanges();
+        }
+
+        private void AddMatch(ScoreTrackerContext ctx, Group group, Team homeTeam, Team awayTeam, DateTime matchTime, int? goalsHomeTeam = null, int? goalsAwayTeam = null)
+        {
+            ctx.Matches.Add(new Match()
+            {
+                HomeTeam = homeTeam,
+                AwayTeam = awayTeam,
+                GoalsAwayTeam = goalsAwayTeam,
+                GoalsHomeTeam = goalsHomeTeam,
+                MatchDate = matchTime,
+                Group = group
+            });
         }
     }
 }
