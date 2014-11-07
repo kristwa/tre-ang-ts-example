@@ -12,54 +12,31 @@ namespace ScoreTracker.API.Controllers
 {
     public class TablesController : ApiController
     {
-        private readonly IRepository<Match> _matchRepository;
+        private readonly IRepository<Group> _groupRepository;
 
-        public TablesController(IRepository<Match> matchRepository )
+        public TablesController(IRepository<Group> groupRepository )
         {
-            _matchRepository = matchRepository;
+            _groupRepository = groupRepository;
         }
 
-        public IEnumerable<TableItem> GetTable()
+        public IEnumerable<TableItem> GetTable(int groupId)
         {
             List<TableItem> table;
 
-            var matches = _matchRepository.Get().Include("HomeTeam").Include("AwayTeam");
+            var group = _groupRepository.Get().FirstOrDefault(g => g.Id == groupId);
+            if (group == null)
+                return null;
 
-            var homeTeams = matches.Select(match => match.HomeTeam).Distinct();
-            var awayTeams = matches.Select(match => match.AwayTeam).Distinct();
+            
+            table = group.Teams.Select(team => new TableItem() { Team = team }).ToList();
 
-            table = homeTeams.Concat(awayTeams).Distinct().Select(team => new TableItem() { Team = team }).ToList();
-
-
-            foreach (var teamItem in table)
+            foreach (var match in group.Matches)
             {
-                foreach (var match in matches.Where(match => match.HomeTeam.Id == teamItem.Team.Id || match.AwayTeam.Id == teamItem.Team.Id))
-                {
-                    var goalsScored = match.HomeTeam == teamItem.Team ? match.GoalsHomeTeam : match.GoalsAwayTeam;
-                    var goalsConceeded = match.HomeTeam == teamItem.Team ? match.GoalsAwayTeam : match.GoalsHomeTeam;
+                var tableItemHomeTeam = table.FirstOrDefault(t => t.Team.Id == match.HomeTeam.Id);
+                var tableItemAwayTeam = table.FirstOrDefault(t => t.Team.Id == match.AwayTeam.Id);
 
-                    var difference = goalsScored - goalsConceeded;
-
-                    teamItem.GoalsFor += goalsScored;
-                    teamItem.GoalsAgainst += goalsConceeded;
-                    teamItem.Games++;
-
-                    if (difference > 0)
-                    {
-                        teamItem.Points += 3;
-                        teamItem.Won++;
-                    }
-                    else if (difference == 0)
-                    {
-                        teamItem.Points += 1;
-                        teamItem.Drawn++;
-                    }
-                    else
-                    {
-                        teamItem.Lost++;
-                    }
-
-                }
+                UpdateTable(tableItemHomeTeam, match.GoalsHomeTeam, match.GoalsAwayTeam);
+                UpdateTable(tableItemAwayTeam, match.GoalsAwayTeam, match.GoalsHomeTeam);
             }
 
             table =
@@ -72,6 +49,30 @@ namespace ScoreTracker.API.Controllers
 
 
             return table;
+        }
+
+        private void UpdateTable(TableItem teamTableItem, int goalsScored, int goalsConceeded)
+        {
+            teamTableItem.GoalsFor += goalsScored;
+            teamTableItem.GoalsAgainst += goalsConceeded;
+            teamTableItem.Games++;
+
+            var diff = goalsScored - goalsConceeded;
+
+            if (diff > 0)
+            {
+                teamTableItem.Won++;
+                teamTableItem.Points += 3;
+            }
+            else if (diff == 0)
+            {
+                teamTableItem.Drawn++;
+                teamTableItem.Points++;
+            }
+            else
+            {
+                teamTableItem.Lost++;
+            }
         } 
     }
 }
