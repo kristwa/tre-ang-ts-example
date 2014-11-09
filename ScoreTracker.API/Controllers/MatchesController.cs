@@ -19,14 +19,14 @@ namespace ScoreTracker.API.Controllers
             _matchRepository = matchRepository;
         }
 
-        public IEnumerable<Match> Get()
+        public IHttpActionResult Get()
         {
-            return _matchRepository.Get().Include("HomeTeam").Include("AwayTeam");
+            return Ok(_matchRepository.Get().Include("HomeTeam").Include("AwayTeam"));
         }
 
-        public Match Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return _matchRepository.GetById(id);
+            return Ok(_matchRepository.GetById(id));
         }
     }
 }

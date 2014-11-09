@@ -9,8 +9,13 @@ namespace ScoreTracker.API.Model
 {
     public class Championship
     {
+        public Championship()
+        {
+            Groups = new HashSet<Group>();
+        }
         public int Id { get; set; }
         public string ChampionshipName { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 
     public class Group
@@ -25,6 +30,7 @@ namespace ScoreTracker.API.Model
         public string Name { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
         public virtual ICollection<Match> Matches { get; set; }
+        [JsonIgnore]
         public Championship Championship { get; set; }
     }
 

@@ -1,6 +1,7 @@
 /// <vs />
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var concatsourcemap = require('gulp-concat-sourcemap');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var watch = require('gulp-watch');
@@ -10,6 +11,7 @@ var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 var rename = require('gulp-rename');
 var ts = require('gulp-typescript');
+var sourcemaps = require('gulp-sourcemaps');
 
 var projectName = 'ScoreTracker.Web';
 
@@ -34,11 +36,6 @@ var config = {
     ]
 }
 
-
-var jsFilter = gulpFilter('*.js');
-var cssFilter = gulpFilter('*.css');
-var fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
-
 gulp.task('clean-js', function() {
     del.sync([projectName + '/app/all.min.js']);
 });
@@ -54,22 +51,10 @@ gulp.task('clean-ts', function () {
 gulp.task('js', ['clean-js'], function() {
 
     gulp.src(config.js)
-        // JS
-        //.pipe(jsFilter)
         //.pipe(uglify())
         .pipe(concat('all.min.js'))
         .on('error', swallowError)
         .pipe(gulp.dest(projectName + '/app/'));
-    //.pipe(jsFilter.restore());
-
-    //// CSS
-    //.pipe(cssFilter)
-    //.pipe(gulp.dest(projectName + '/Content/'))
-    ////.pipe(minifyCss())
-    ////.pipe(concatCss("bundle.css"))
-    ////.pipe(gulp.dest('ScoreTracker.Web/Content/'))
-    //.pipe(cssFilter.restore());
-
 
 });
 
@@ -80,20 +65,18 @@ gulp.task('css', ['clean-css'], function() {
 
 gulp.task('ts', ['clean-ts'], function() {
     gulp.src(config.ts)
+        .pipe(sourcemaps.init())
         .pipe(ts({
+            sortOutput: true,
             decarationFiles: true,
             noExternalResolve: true,
         }))
         .on('error', swallowError)
-        .pipe(concat('app.js'))
+        .pipe(concatsourcemap('app.js'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(projectName + '/app'));
 });
 
-
-//gulp.task('bower', function() {
-//    return bower()
-//        .pipe(gulp.dest(config.bowerDir));
-//});
 
 gulp.task('watch', function () {
     console.log(typeof (config.ts));
@@ -107,12 +90,6 @@ gulp.task('watch', function () {
         gulp.start('css');
     });
 
-    //gulp.watch(config.js.concat(config.ts, config.css), ['js', 'ts', 'css']);
-    //watch(config.js.concat(config.ts, config.css)), function () {
-    //    console.log('Trigger');
-    //    config = buildConfig();
-    //    gulp.start('default');
-//};
 });
 
 gulp.task('default', ['js', 'ts', 'css'], function () { });
