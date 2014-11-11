@@ -25,3 +25,6 @@ in order to generate js/ts/css output, or use
 gulp watch
 ```
 to leave gulp watching your js/ts/css source files and automatically regenerate output on changes to files.
+
+Open the solution in Visual Studio. Right click the solution in Solution Explorer and select Properties. Go to Common Properties -> Startup Project and select Multiple startup projects.
+Select API and Web project in order to make these two start up automatically when you debug from Visual Studio.
