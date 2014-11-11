@@ -1,12 +1,11 @@
 ﻿/// <reference path="References.ts"/>
-module Scoretracker {
-    export class Config {
-
+var Scoretracker;
+(function (Scoretracker) {
+    var Config = (function () {
         //public static $inject = [
         //    '$routeProvider'
         //];
-
-        constructor() {
+        function Config() {
             //$routeProvider.when('/test', {
             //        templateUrl: 'app/templates/test.html',
             //        controller: 'testController'
@@ -15,6 +14,8 @@ module Scoretracker {
             //        redirectTo: '/test'
             //    });
         }
-
-    }
-}
+        return Config;
+    })();
+    Scoretracker.Config = Config;
+})(Scoretracker || (Scoretracker = {}));
+//# sourceMappingURL=Config.js.map

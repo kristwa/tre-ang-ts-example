@@ -4,5 +4,4 @@
 /// <reference path="controllers/TestController.ts"/>
 /// <reference path="services/GroupsService.ts"/>
 /// <reference path="services/TableService.ts"/>
-/// <reference path="Config.ts"/>
 /// <reference path="Module.ts"/>

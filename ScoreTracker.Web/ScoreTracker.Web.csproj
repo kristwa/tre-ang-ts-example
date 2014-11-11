@@ -80,7 +80,6 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\Config.ts" />
     <TypeScriptCompile Include="app\Module.ts" />
     <TypeScriptCompile Include="app\controllers\TestController.ts" />
     <TypeScriptCompile Include="app\References.ts" />

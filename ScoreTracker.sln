@@ -3,13 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreTracker.Reference", "ScoreTracker\ScoreTracker.Reference.csproj", "{4E88C890-8C84-470F-8213-7E6A652D8B7C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6001F0F-1639-4303-AE32-85630ED26A34}"
 	ProjectSection(SolutionItems) = preProject
 		bower.json = bower.json
 		gulpfile.js = gulpfile.js
 		package.json = package.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreTracker.Web", "ScoreTracker.Web\ScoreTracker.Web.csproj", "{1832A714-B951-4CCD-A648-372F7F61B847}"
@@ -24,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E88C890-8C84-470F-8213-7E6A652D8B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E88C890-8C84-470F-8213-7E6A652D8B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E88C890-8C84-470F-8213-7E6A652D8B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E88C890-8C84-470F-8213-7E6A652D8B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1832A714-B951-4CCD-A648-372F7F61B847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1832A714-B951-4CCD-A648-372F7F61B847}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1832A714-B951-4CCD-A648-372F7F61B847}.Release|Any CPU.ActiveCfg = Release|Any CPU

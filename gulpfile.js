@@ -5,18 +5,14 @@ var concatsourcemap = require('gulp-concat-sourcemap');
 var uglify = require('gulp-uglify');
 var del = require('del');
 var watch = require('gulp-watch');
-var gulpFilter = require('gulp-filter');
-var mainBowerFiles = require('main-bower-files');
 var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
-var rename = require('gulp-rename');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 
 var projectName = 'ScoreTracker.Web';
 
 var config = {
-    src: mainBowerFiles(),
     js: [
         'bower_components/jquery/jquery.js',
         'bower_components/angular/angular.js',
