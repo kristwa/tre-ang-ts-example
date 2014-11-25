@@ -80,6 +80,12 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\models\Group.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="app\models\Match.ts" />
+    <TypeScriptCompile Include="app\models\TableItem.ts" />
+    <TypeScriptCompile Include="app\models\Team.ts" />
     <TypeScriptCompile Include="app\Module.ts" />
     <TypeScriptCompile Include="app\controllers\TestController.ts" />
     <TypeScriptCompile Include="app\References.ts" />

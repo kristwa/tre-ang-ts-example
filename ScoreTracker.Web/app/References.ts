@@ -4,4 +4,8 @@
 /// <reference path="controllers/TestController.ts"/>
 /// <reference path="services/GroupsService.ts"/>
 /// <reference path="services/TableService.ts"/>
+/// <reference path="models/Team.ts"/>
+/// <reference path="models/Match.ts"/>
+/// <reference path="models/Group.ts"/>
+/// <reference path="models/TableItem.ts"/>
 /// <reference path="Module.ts"/>

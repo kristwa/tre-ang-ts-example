@@ -8,11 +8,11 @@
             
             <tbody>
                 <tr ng-repeat="line in group.matches">
-                    <td>{{line.homeTeam.teamName}}</td>
-                    <td>{{line.goalsHomeTeam}}</td>
-                    <td>-</td>
-                    <td>{{line.goalsAwayTeam}}</td>
-                    <td>{{line.awayTeam.teamName}}</td>
+                    <td style="width: 35%">{{line.homeTeam.teamName}}</td>
+                    <td style="width: 12%"><input type="number" min="0" max="15" class="form-control" ng-model="line.goalsHomeTeam" /></td>
+                    <td style="width: 6%">-</td>
+                    <td style="width: 12%"><input type="number" min="0" max="15" class="form-control" ng-model="line.goalsAwayTeam" /></td>
+                    <td style="width: 35%" class="text-right">{{line.awayTeam.teamName}}</td>
                 </tr>
             </tbody>
 
