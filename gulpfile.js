@@ -16,6 +16,7 @@ var config = {
     js: [
         'bower_components/jquery/jquery.js',
         'bower_components/angular/angular.js',
+        'bower_components/angular-local-storage/dist/angular-local-storage.js',
         'bower_components/angular-route/angular-route.js',
         'bower_components/angular-toastr/dist/angular-toastr.js',
         'bower_components/bootstrap/dist/js/bootstrap.js'

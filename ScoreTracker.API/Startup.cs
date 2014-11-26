@@ -7,10 +7,12 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using ScoreTracker.API.Lib;
+using ScoreTracker.API.Lib.Auth;
 using WebApiContrib.IoC.Ninject;
 
 [assembly: OwinStartup(typeof(ScoreTracker.API.Startup))]
@@ -24,6 +26,8 @@ namespace ScoreTracker.API
 
             var config = new HttpConfiguration();
             config.DependencyResolver = new NinjectResolver(NinjectConfig.CreateKernel());
+
+            ConfigureOAuth(app);
 
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
@@ -46,6 +50,21 @@ namespace ScoreTracker.API
             
 
             app.UseWebApi(config);
+        }
+
+        private void ConfigureOAuth(IAppBuilder app)
+        {
+            var oAuthServerOptions = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(15),
+                Provider = new SimpleAuthorizationServerProvider(),
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+            };
+
+            app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
     

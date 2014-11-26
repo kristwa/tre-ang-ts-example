@@ -18,6 +18,8 @@ namespace ScoreTracker.API.Lib
             try
             {
                 kernel.Bind(typeof(IRepository<>)).To(typeof(DbRepository<>));
+                kernel.Bind<IAuthRepository>().To<AuthRepository>();
+                
                 kernel.Bind<ICompetitionTableGenerator>().To<CompetitionTableGenerator>();
                 //kernel.Bind<IRepository<Match>>().To<DbRepository<Match>>();
                 return kernel;

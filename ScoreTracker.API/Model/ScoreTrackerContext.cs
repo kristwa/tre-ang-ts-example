@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ScoreTracker.API.Lib;
 
 namespace ScoreTracker.API.Model
 {
 
-    public class ScoreTrackerContext : DbContext
+    public class ScoreTrackerContext : IdentityDbContext<IdentityUser>
     {
         public ScoreTrackerContext() : base("ScoreTrackerConnection")
         {
@@ -18,6 +21,9 @@ namespace ScoreTracker.API.Model
         public DbSet<Match> Matches  { get; set; }
         public DbSet<Championship> Championships { get; set; }
         public DbSet<Group> Groups { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         
     }
 
@@ -33,6 +39,7 @@ namespace ScoreTracker.API.Model
     {
         protected override void Seed(ScoreTrackerContext ctx)
         {
+            
             ctx.Matches.RemoveRange(ctx.Matches);
             ctx.Teams.RemoveRange(ctx.Teams);
             ctx.Groups.RemoveRange(ctx.Groups);
@@ -118,7 +125,7 @@ namespace ScoreTracker.API.Model
             ctx.Groups.Add(group2);
 
             ctx.SaveChanges();
-            
+
 
             ctx.Matches.Add(new Match()
             {
@@ -180,7 +187,7 @@ namespace ScoreTracker.API.Model
                 Group = group1
             });
 
-            AddMatch(ctx, group2, norway, brazil, new DateTime(2014,10,10), 1, 4);
+            AddMatch(ctx, group2, norway, brazil, new DateTime(2014, 10, 10), 1, 4);
             AddMatch(ctx, group2, germany, japan, new DateTime(2014, 10, 10), 3, 0);
             AddMatch(ctx, group2, japan, norway, new DateTime(2015, 10, 10));
             AddMatch(ctx, group2, brazil, germany, new DateTime(2014, 10, 10));
@@ -188,6 +195,20 @@ namespace ScoreTracker.API.Model
             AddMatch(ctx, group2, japan, brazil, new DateTime(2014, 11, 12));
 
             ctx.SaveChanges();
+
+            ctx.Clients.Add(new Client()
+            {
+                Id = "scoretrackerApp",
+                Name = "Scoretracker",
+                Secret = "123123".GetHash(),
+                ApplicationType = ApplicationTypes.JavaScript,
+                Active = true,
+                RefreshTokenLifeTime = 7200,
+                AllowedOrigin = "http://localhost:27398"
+            });
+
+            ctx.SaveChanges();
+            
         }
 
         private void AddMatch(ScoreTrackerContext ctx, Group group, Team homeTeam, Team awayTeam, DateTime matchTime, int? goalsHomeTeam = null, int? goalsAwayTeam = null)
