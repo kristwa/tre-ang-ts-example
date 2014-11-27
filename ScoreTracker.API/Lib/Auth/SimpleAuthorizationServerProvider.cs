@@ -84,7 +84,13 @@ namespace ScoreTracker.API.Lib.Auth
             if (allowedOrigin == null)
                 allowedOrigin = "*";
 
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            var header = context.OwinContext.Response.Headers.SingleOrDefault(h => h.Key == "Access-Control-Allow-Origin");
+            if (header.Equals(default(KeyValuePair<string, string[]>)))
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            }
+
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             using (var repo = new AuthRepository())
             {

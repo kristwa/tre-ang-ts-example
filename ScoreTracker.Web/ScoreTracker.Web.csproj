@@ -61,8 +61,10 @@
   <ItemGroup>
     <Content Include="app\templates\home.html" />
     <Content Include="app\templates\login.html" />
+    <Content Include="app\templates\refresh.html" />
     <Content Include="app\templates\signup.html" />
     <Content Include="app\templates\scoretracker.html" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\all.min.js" />
     <Content Include="Web.config" />
@@ -79,12 +81,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="app\controllers\HomeController.ts" />
+    <TypeScriptCompile Include="app\controllers\IndexController.ts" />
     <TypeScriptCompile Include="app\controllers\LoginController.ts" />
+    <TypeScriptCompile Include="app\controllers\RefreshController.ts" />
     <TypeScriptCompile Include="app\controllers\SignupController.ts" />
     <TypeScriptCompile Include="app\factories\AuthInterceptor.ts" />
     <TypeScriptCompile Include="app\models\AuthenticationInfo.ts" />

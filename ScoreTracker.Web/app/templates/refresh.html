@@ -1,0 +1,29 @@
+﻿
+<div class="row">
+    <div class="col-md-3">
+        &nbsp;
+    </div>
+    <div class="col-md-6">
+        <p data-ng-hide="vm.authentication.useRefreshTokens">User <strong>{{vm.authentication.userName}}</strong> has disabled <strong>Refresh Tokens</strong> once logged in, you can not refresh tokens.</p>
+        <div data-ng-show="vm.authentication.useRefreshTokens">
+            <p class="text-success">Use this view to obtain new access token using the refresh token.</p>
+            <p>User <strong>{{vm.authentication.userName}}</strong> has enabled <strong>Refresh Tokens</strong> once logged in, to refresh your current access token click on the button below.</p>
+            <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="vm.refreshToken()" data-ng-disabled="!vm.authentication.userName && !vm.authentication.useRefreshTokens">Refresh Token</button>
+        </div>
+        <div data-ng-show="vm.authentication.useRefreshTokens" style="margin-top:10px;">
+            <div class="panel panel-success" data-ng-show="tokenRefreshed">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Successfully refreshed Access Token</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Access_token: {{vm.tokenResponse.access_token | limitTo : 30}}....</p>
+                    <p><a href="#/scoretracker">Click here to view Scoretracker using the new Access Token</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        &nbsp;
+    </div>
+</div>

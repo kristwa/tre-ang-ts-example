@@ -10,7 +10,7 @@ module Scoretracker {
          private $q: ng.IQService;
          private localStorageService: ng.localStorage.ILocalStorageService;
          private scoretrackerAuthSettings: any;
-         private authentication: AuthenticationInfo;
+         public authentication: AuthenticationInfo;
 
          constructor($http: ng.IHttpService, $q: ng.IQService, localStorageService: ng.localStorage.ILocalStorageService, scoretrackerAuthSettings) {
              this.$http = $http;
@@ -96,27 +96,27 @@ module Scoretracker {
 
              var authData = this.localStorageService.get('authorizationData');
 
-             if (authData) {
+             if (authData && authData.useRefreshTokens) {
 
-                 if (authData.useRefreshTokens) {
+                 var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + this.scoretrackerAuthSettings.clientId;
 
-                     var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + this.scoretrackerAuthSettings.clientId;
+                 this.localStorageService.remove('authorizationData');
 
-                     this.localStorageService.remove('authorizationData');
+                 this.$http.post<any>(this.scoretrackerAuthSettings.apiServiceBaseUri + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                     .success(response => {
 
-                     this.$http.post<any>(this.scoretrackerAuthSettings.apiServiceBaseUri + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-                         .success(response => {
+                         this.localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
 
-                             this.localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
+                         deferred.resolve(response);
 
-                             deferred.resolve(response);
+                     })
+                     .error(function(err, status) {
+                         this.logOut();
+                         deferred.reject(err);
+                     });
 
-                         })
-                         .error(function (err, status) {
-                             this.logOut();
-                             deferred.reject(err);
-                         });
-                 }
+             } else {
+                 deferred.reject();
              }
 
              return deferred.promise;

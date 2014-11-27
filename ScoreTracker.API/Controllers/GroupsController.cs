@@ -11,6 +11,7 @@ using ScoreTracker.API.Lib;
 
 namespace ScoreTracker.API.Controllers
 {
+    [Authorize]
     public class GroupsController : ApiController
     {
         private readonly IRepository<Group> _groupRepository;

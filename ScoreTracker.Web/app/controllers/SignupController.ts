@@ -23,6 +23,8 @@ module Scoretracker {
             this.$timeout = $timeout;
             this.authService = authService;
 
+            this.message = "";
+
             this.registration = {
                 userName: "",
                 password: "",

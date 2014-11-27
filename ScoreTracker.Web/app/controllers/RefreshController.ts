@@ -2,40 +2,31 @@
 module Scoretracker {
     'use strict';
 
-    export class LoginController {
-        private $scope;
+    export class RefreshController {
+        private authentication: AuthenticationInfo;
         private $location: ng.ILocationService;
         private authService: AuthService;
-        private message: string;
-        private loginData: any;
+        private tokenRefreshed: boolean;
+        private tokenResponse: any;
 
         public static $inject = [
             '$scope', '$location', 'authService'
         ];
 
         constructor($scope, $location: ng.ILocationService, authService: AuthService) {
-            this.$scope = $scope;
             $scope.vm = this;
             this.$location = $location;
             this.authService = authService;
-
-            this.message = "";
-
-            this.loginData = {
-                userName: "",
-                password: "",
-                useRefreshTokens: true
-            };
+            this.authentication = authService.authentication;
         }
 
-        login() {
-            this.authService.login(this.loginData).then(() => {
-                this.$location.path("/scoretracker");
+        refreshToken() {
+            this.authService.refreshToken().then(response => {
+                this.tokenRefreshed = true;
+                this.tokenResponse = response;
             }, err => {
-                this.message = err.error_description;
+                this.$location.path("/login");
             });
         }
-
-
     }
-}
+} 

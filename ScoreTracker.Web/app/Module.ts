@@ -24,7 +24,8 @@ module Scoretracker {
                         templateUrl: 'app/templates/signup.html'
                     })
                     .when('/refresh', {
-
+                        controller: 'refreshController',
+                        templateUrl: 'app/templates/refresh.html'
                     })
                     .when('/resetpassword', {
 
@@ -40,6 +41,8 @@ module Scoretracker {
         .controller('signupController', Scoretracker.SignupController)
         .controller('loginController', Scoretracker.LoginController)
         .controller('homeController', Scoretracker.HomeController)
+        .controller('indexController', Scoretracker.IndexController)
+        .controller('refreshController', Scoretracker.RefreshController)
         .service('groupsService', Scoretracker.GroupsService)
         .service('tableService', Scoretracker.TableService)
         .constant('scoretrackerAuthSettings', {

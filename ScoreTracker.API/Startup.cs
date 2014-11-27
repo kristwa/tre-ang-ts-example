@@ -22,11 +22,10 @@ namespace ScoreTracker.API
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseCors(CorsOptions.AllowAll);
-
             var config = new HttpConfiguration();
             config.DependencyResolver = new NinjectResolver(NinjectConfig.CreateKernel());
 
+            app.UseCors(CorsOptions.AllowAll);
             ConfigureOAuth(app);
 
             config.MapHttpAttributeRoutes();
@@ -60,7 +59,7 @@ namespace ScoreTracker.API
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(15),
                 Provider = new SimpleAuthorizationServerProvider(),
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+                RefreshTokenProvider = new SimpleRefreshTokenProvider(),
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);

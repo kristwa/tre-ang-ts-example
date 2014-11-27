@@ -15,4 +15,6 @@
 /// <reference path="controllers/LoginController.ts"/>
 /// <reference path="controllers/SignupController.ts"/>
 /// <reference path="controllers/HomeController.ts"/>
+/// <reference path="controllers/IndexController.ts"/>
+/// <reference path="controllers/RefreshController.ts"/>
 /// <reference path="Module.ts"/>
