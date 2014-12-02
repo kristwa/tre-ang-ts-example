@@ -59,7 +59,7 @@ namespace ScoreTracker.API.Lib.Auth
         public async System.Threading.Tasks.Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             string hashedTokenId = context.Token.GetHash();
 
